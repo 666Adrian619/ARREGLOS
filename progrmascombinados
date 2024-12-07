@@ -1,0 +1,180 @@
+import java.util.Scanner;
+
+public class ProgramasCombinados {
+    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        while (true) {
+            System.out.println("Selecciona una opción:");
+            System.out.println("1. Promedio de valores positivos y negativos");
+            System.out.println("2. Promedio de valores en posiciones pares");
+            System.out.println("3. Suma de matrices 3x3");
+            System.out.println("4. Salir");
+            System.out.print("Opción: ");
+            int opcion = scanner.nextInt();
+            
+            switch (opcion) {
+                case 1:
+                    promedioPositivosNegativos(scanner);
+                    break;
+                case 2:
+                    promedioPosicionesPares(scanner);
+                    break;
+                case 3:
+                    sumaMatrices(scanner);
+                    break;
+                case 4:
+                    System.out.println("Saliendo...");
+                    scanner.close();
+                    return; // Salir del programa
+                default:
+                    System.out.println("Opción no válida. Inténtalo de nuevo.");
+            }
+        }
+    }
+    
+    // Promedio de valores positivos y negativos
+    public static void promedioPositivosNegativos(Scanner scanner) {
+        int[] numeros = new int[10];
+        int sumaPositivos = 0, sumaNegativos = 0;
+        int contadorPositivos = 0, contadorNegativos = 0;
+        
+        System.out.println("Introduce 10 números enteros:");
+        for (int i = 0; i < 10; i++) {
+            while (true) {
+                System.out.print("Número " + (i + 1) + ": ");
+                if (scanner.hasNextInt()) {
+                    numeros[i] = scanner.nextInt();
+                    break;
+                } else {
+                    System.out.println("Entrada no válida. Introduce un número entero.");
+                    scanner.next(); // Limpiar buffer
+                }
+            }
+        }
+        
+        // Calcular sumas y contar positivos y negativos
+        for (int num : numeros) {
+            if (num > 0) {
+                sumaPositivos += num;
+                contadorPositivos++;
+            } else if (num < 0) {
+                sumaNegativos += num;
+                contadorNegativos++;
+            }
+        }
+
+        // Mostrar resultados
+        if (contadorPositivos > 0) {
+            System.out.println("Promedio de los valores positivos: " + (double) sumaPositivos / contadorPositivos);
+        } else {
+            System.out.println("No hay valores positivos.");
+        }
+        
+        if (contadorNegativos > 0) {
+            System.out.println("Promedio de los valores negativos: " + (double) sumaNegativos / contadorNegativos);
+        } else {
+            System.out.println("No hay valores negativos.");
+        }
+    }
+
+    // Promedio de valores en posiciones pares
+    public static void promedioPosicionesPares(Scanner scanner) {
+        int[] numeros = new int[10];
+        int sumaPares = 0, contadorPares = 0;
+        
+        System.out.println("Introduce 10 números enteros:");
+        for (int i = 0; i < 10; i++) {
+            while (true) {
+                System.out.print("Número " + (i + 1) + ": ");
+                if (scanner.hasNextInt()) {
+                    numeros[i] = scanner.nextInt();
+                    break;
+                } else {
+                    System.out.println("Entrada no válida. Introduce un número entero.");
+                    scanner.next(); // Limpiar buffer
+                }
+            }
+        }
+        
+        // Calcular suma y contar números en posiciones pares
+        for (int i = 0; i < 10; i += 2) {
+            sumaPares += numeros[i];
+            contadorPares++;
+        }
+
+        // Mostrar resultado
+        if (contadorPares > 0) {
+            System.out.println("Promedio de los números en posiciones pares: " + (double) sumaPares / contadorPares);
+        } else {
+            System.out.println("No hay números en posiciones pares.");
+        }
+    }
+
+    // Suma de matrices 3x3
+    public static void sumaMatrices(Scanner scanner) {
+        int[][] matrizA = new int[3][3];
+        int[][] matrizB = new int[3][3];
+        int[][] matrizS = new int[3][3];
+
+        // Leer la primera matriz A
+        System.out.println("Introduce los elementos de la matriz A (3x3):");
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                while (true) {
+                    System.out.print("Elemento A[" + i + "][" + j + "]: ");
+                    if (scanner.hasNextInt()) {
+                        matrizA[i][j] = scanner.nextInt();
+                        break;
+                    } else {
+                        System.out.println("Entrada no válida. Introduce un número entero.");
+                        scanner.next(); // Limpiar buffer
+                    }
+                }
+            }
+        }
+
+        // Leer la segunda matriz B
+        System.out.println("Introduce los elementos de la matriz B (3x3):");
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                while (true) {
+                    System.out.print("Elemento B[" + i + "][" + j + "]: ");
+                    if (scanner.hasNextInt()) {
+                        matrizB[i][j] = scanner.nextInt();
+                        break;
+                    } else {
+                        System.out.println("Entrada no válida. Introduce un número entero.");
+                        scanner.next(); // Limpiar buffer
+                    }
+                }
+            }
+        }
+
+        // Sumar las matrices A y B
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                matrizS[i][j] = matrizA[i][j] + matrizB[i][j];
+            }
+        }
+
+        // Mostrar las matrices
+        System.out.println("\nMatriz A:");
+        mostrarMatriz(matrizA);
+        System.out.println("\nMatriz B:");
+        mostrarMatriz(matrizB);
+        System.out.println("\nMatriz S (Resultado de la suma):");
+        mostrarMatriz(matrizS);
+    }
+
+    // Función para mostrar una matriz
+    public static void mostrarMatriz(int[][] matriz) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.print(matriz[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
